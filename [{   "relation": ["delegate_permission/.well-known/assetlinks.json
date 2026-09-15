@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "app.vercel.hidup_klilingan_online_v6_4_pwa_1.twa",
+    "sha256_cert_fingerprints": ["DB:F1:1F:66:1B:47:20:48:54:63:59:EA:B5:05:75:AC:7F:DA:4C:FA:96:27:08:DF:C7:30:51:C3:7F:D5:C6:D9"]
+  }
+}]
