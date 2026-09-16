@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f766e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Hidup klilingan">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<title>Hidup klilingan</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f7f7;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial;color:#172323}
+.app{max-width:520px;margin:auto;min-height:100vh;background:#fff}
+header{padding:22px 18px 12px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #edf0f0}
+.brand{display:flex;gap:12px;align-items:center}.logo{width:44px;height:44px;border-radius:14px;background:#0f766e;color:#fff;display:grid;place-items:center;font-weight:800}
+h1{font-size:20px;margin:0}.muted{color:#718080;font-size:13px}.content{padding:16px 16px 90px}
+.card{background:#fff;border:1px solid #e7eded;border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px #163b3b08}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;border-radius:14px;padding:14px;font-weight:700;font-size:14px;cursor:pointer}.primary{background:#0f766e;color:#fff}.light{background:#eef6f5;color:#0f766e}.danger{background:#feecec;color:#b42318}
+input,select{width:100%;padding:13px;border:1px solid #dbe4e4;border-radius:12px;margin:6px 0 10px;font-size:15px}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:#fff;border-top:1px solid #e6eeee;display:flex;padding:8px 6px env(safe-area-inset-bottom);z-index:5}
+.nav{flex:1;border:0;background:transparent;padding:8px 3px;color:#718080;font-size:11px}.nav.active{color:#0f766e;font-weight:800}
+.status{display:inline-block;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:800}.ok{background:#dcfce7;color:#166534}.late{background:#fef3c7;color:#92400e}.none{background:#f1f5f9;color:#475569}.sun{background:#fee2e2;color:#991b1b}
+.hidden{display:none!important}.center{text-align:center}.big{font-size:28px;font-weight:800}.row{display:flex;justify-content:space-between;gap:10px;align-items:center}.photo{width:100%;max-height:360px;object-fit:contain;border-radius:14px;display:block;background:#f4f7f7}.small{font-size:12px}.photo-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #edf1f1}.photo-meta{min-width:0;flex:1}.photo-actions{display:flex;gap:6px}.photo-actions .btn{padding:9px 10px;font-size:12px}
+video{width:100%;border-radius:16px;background:#111}.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(160deg,#effaf8,#fff)}
+.loginbox{width:min(420px,100%)}.loginbox .logo{margin:auto}.err{color:#b42318;font-size:13px;margin:5px 0}
+
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}.cal-title{font-size:19px;font-weight:800;text-transform:capitalize}.cal-nav{width:40px;height:40px;border:0;border-radius:12px;background:#eef6f5;color:#0f766e;font-size:20px;font-weight:800}.cal-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.cal-stat{padding:11px 7px;border-radius:14px;background:#f7f9f9;text-align:center}.cal-stat b{display:block;font-size:18px}.cal-stat span{font-size:10px;color:#718080}.cal-week,.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.cal-week div{text-align:center;font-size:10px;font-weight:800;color:#718080;padding:5px 0}.cal-day{min-height:53px;border:1px solid #edf1f1;border-radius:12px;background:#fff;padding:6px 4px;position:relative;text-align:center}.cal-day.empty{border-color:transparent;background:transparent}.cal-day .num{font-size:12px;font-weight:800}.cal-day .dot{width:7px;height:7px;border-radius:50%;margin:5px auto 0}.cal-day.present{background:#effaf2;border-color:#ccebd3}.cal-day.present .dot{background:#16a34a}.cal-day.late{background:#fff8e7;border-color:#f5df9e}.cal-day.late .dot{background:#eab308}.cal-day.sun{background:#fff1f1;border-color:#f7d0d0}.cal-day.sun .dot{background:#ef4444}.cal-day.today{box-shadow:inset 0 0 0 2px #0f766e}.cal-day.future{opacity:.5}.cal-detail{margin-top:14px}.cal-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.cal-legend span{font-size:10px;padding:6px 9px;border-radius:999px;background:#f5f7f7}.cal-back{margin-bottom:12px}.employee-pick{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left}.employee-pick .avatar{width:38px;height:38px;border-radius:12px;background:#e8f6f4;color:#0f766e;display:grid;place-items:center;font-weight:800;margin-right:10px}.employee-pick .meta{flex:1}.profile-head{display:flex;align-items:center;gap:14px}.profile-avatar{width:88px;height:88px;border-radius:50%;object-fit:cover;background:#e8f6f4;color:#0f766e;display:grid;place-items:center;font-weight:800;font-size:30px;flex:0 0 88px}.bio{white-space:pre-wrap;line-height:1.5;color:#425252}.
+</style>
+</head>
+<body>
+<div id="login" class="login">
+ <div class="loginbox">
+  <div class="card center">
+   <div class="logo">HK</div><h1 style="margin-top:12px">Hidup klilingan</h1>
+   <p class="muted">Absensi karyawan</p>
+   <input id="code" inputmode="numeric" maxlength="2" placeholder="Kode 2 angka">
+   <button class="btn primary" style="width:100%" onclick="login()">Masuk</button>
+   <div id="err" class="err"></div>
+  </div>
+ </div>
+</div>
+
+<div id="app" class="app hidden">
+<header><div class="brand"><div class="logo">HK</div><div><h1>Hidup klilingan</h1><div id="who" class="muted"></div></div></div></header>
+<main class="content" id="page"></main>
+<nav class="bottom" id="nav"></nav>
+</div>
+
+<script src="config.js"></script>
+<script>
+const C=window.SUPABASE_CONFIG||{};
+let user=null,role=null,stream=null;
+const $=id=>document.getElementById(id);
+const cache=new Map();
+const TTL=30000;
+function ready(){return !!(C.url&&C.url.startsWith('http')&&C.anonKey&&C.anonKey.length>20)}
+async function api(path,opt={}){
+  const method=(opt.method||'GET').toUpperCase();
+  const key=method==='GET'?path:null;
+  if(key){const hit=cache.get(key);if(hit&&Date.now()-hit.t<TTL)return hit.data;}
+  const r=await fetch(C.url+'/rest/v1/'+path,{...opt,headers:{apikey:C.anonKey,Authorization:'Bearer '+C.anonKey,'Content-Type':'application/json',...(opt.headers||{})},cache:'no-store'});
+  if(!r.ok)throw new Error(await r.text());
+  const data=r.status===204?null:await r.json();
+  if(key)cache.set(key,{t:Date.now(),data});
+  else cache.clear();
+  return data;
+}
+function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function esc(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function setPage(html){$('page').innerHTML=html}
+async function login(){
+  const code=$('code').value.trim();
+  if(!/^\d{2}$/.test(code)){$('err').textContent='Masukkan kode 2 angka.';return}
+  if(code==='23'){role='admin';user={code:'23',name:'Admin'};openApp();return}
+  if(!ready()){$('err').textContent='Koneksi Supabase belum siap. Periksa config.js.';return}
+  $('err').textContent='Memeriksa kode...';
+  try{
+    const a=await api('employees?code=eq.'+encodeURIComponent(code)+'&active=eq.true&select=id,code,name,active,profile_photo,bio');
+    if(!a.length)throw Error('Kode tidak ditemukan');
+    role='employee';user=a[0];openApp();
+  }catch(e){$('err').textContent='Login gagal: '+(e.message||'koneksi gagal');}
+}
+function openApp(){ $('login').classList.add('hidden');$('app').classList.remove('hidden');$('who').textContent=user.name+(role==='admin'?' • Admin':'');renderNav();home() }
+function renderNav(){
+ const items=role==='admin'?[['home','⌂','Home'],['employees','👥','Karyawan'],['calendar','▦','Kalender'],['more','⋯','Lainnya']]:[['home','⌂','Absen'],['calendar','▦','Kalender'],['more','⋯','Lainnya']];
+ $('nav').innerHTML=items.map(x=>`<button class="nav" onclick="${x[0]}()"><div style="font-size:20px">${x[1]}</div>${x[2]}</button>`).join('')
+}
+function navActive(i){[...$('nav').children].forEach((x,n)=>x.classList.toggle('active',n===i))}
+function loading(text='Memuat...'){setPage(`<div class="card center muted">${text}</div>`)}
+async function home(){
+ navActive(0);loading('Memuat data...');
+ try{
+  if(role==='employee'){
+   const a=await api(`attendance?employee_code=eq.${encodeURIComponent(user.code)}&work_date=eq.${today()}&select=type,work_time,photo_path&order=work_time.asc`);
+   const masuk=a.find(x=>x.type==='Masuk'), pulang=a.find(x=>x.type==='Pulang');
+   setPage(`<div class="card center"><div class="muted">Hari ini</div><div class="big">${new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long'})}</div><div class="grid" style="margin-top:15px"><button class="btn primary" onclick="attendance('Masuk')">📷 Absen Masuk</button><button class="btn light" onclick="attendance('Pulang')">📷 Absen Pulang</button></div></div><div class="card"><div class="row"><b>Status hari ini</b><span class="status ${masuk?'ok':'none'}">${masuk?'Berangkat':'Belum absen'}</span></div><p class="muted">Masuk: ${masuk?esc(masuk.work_time):'-'} • Pulang: ${pulang?esc(pulang.work_time):'-'}</p></div>`);
+  }else{
+   const [em,at]=await Promise.all([api('employees?active=eq.true&select=code,name,profile_photo,bio&order=name.asc'),api(`attendance?work_date=eq.${today()}&type=eq.Masuk&select=employee_code,work_time`)]);
+   const map=new Map(at.map(x=>[x.employee_code,x]));
+   setPage(`<div class="card"><div class="muted">Dashboard Admin</div><div class="big">${at.length}/${em.length}</div><div class="muted">karyawan sudah absen masuk hari ini</div></div>`+em.map(e=>{let x=map.get(e.code);return `<div class="card row"><div><b>${esc(e.name)}</b><div class="small">${esc(e.code)}${x?' • '+esc(x.work_time):''}</div></div><span class="status ${x?'ok':'none'}">${x?'Berangkat':'Tidak berangkat'}</span></div>`}).join(''));
+  }
+ }catch(e){setPage(`<div class="card center"><b>Gagal memuat data</b><p class="muted">${esc(e.message)}</p><button class="btn primary" onclick="home()">Coba lagi</button></div>`)}
+}
+async function calendar(){
+ navActive(role==='admin'?2:1);loading('Memuat karyawan...');
+ try{
+  const list=role==='admin'?await api('employees?active=eq.true&select=code,name,profile_photo,bio&order=name.asc'):[user];
+  setPage(`<div class="card"><h2 style="margin-top:0">Kalender</h2><p class="muted">Pilih karyawan untuk melihat rekap absensi.</p>${list.map(e=>`<button class="btn light" style="width:100%;margin:4px 0;text-align:left" onclick="showCalendar('${esc(e.code)}','${esc(e.name)}')">${esc(e.name)} <span class="small">(${esc(e.code)})</span></button>`).join('')}</div>`);
+ }catch(e){setPage(`<div class="card center">Gagal memuat kalender.<br><button class="btn primary" onclick="calendar()">Coba lagi</button></div>`)}
+}
+let calCode=null,calName='',calMonth=new Date();
+let calData=[];
+function ym(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}
+function localDate(s){const [y,m,d]=String(s).split('-').map(Number);return new Date(y,m-1,d)}
+function dayKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function monthName(d){return d.toLocaleDateString('id-ID',{month:'long',year:'numeric'})}
+function renderCalendar(){
+ const first=new Date(calMonth.getFullYear(),calMonth.getMonth(),1), last=new Date(calMonth.getFullYear(),calMonth.getMonth()+1,0);
+ const start=(first.getDay()+6)%7, days=last.getDate(), now=new Date();now.setHours(0,0,0,0);
+ const map=new Map();calData.forEach(x=>{const k=x.work_date;if(!map.has(k))map.set(k,[]);map.get(k).push(x)});
+ let hadir=0,telat=0,pulang=0;
+ let cells='';
+ for(let i=0;i<start;i++)cells+='<div class="cal-day empty"></div>';
+ for(let n=1;n<=days;n++){
+  const d=new Date(calMonth.getFullYear(),calMonth.getMonth(),n), key=dayKey(d), rows=map.get(key)||[], masuk=rows.find(x=>x.type==='Masuk'), plg=rows.find(x=>x.type==='Pulang');
+  const isSun=d.getDay()===0, isToday=key===dayKey(now), future=d>now;
+  const late=masuk && String(masuk.work_time)>='05:30';
+  if(masuk)hadir++;if(late)telat++;if(plg)pulang++;
+  let cls='cal-day'+(isSun?' sun':'')+(masuk?(late?' late':' present'):'')+(isToday?' today':'')+(future?' future':'');
+  let dot=masuk?'<div class="dot"></div>':'';
+  cells+=`<div class="${cls}" title="${masuk?('Masuk '+masuk.work_time):'Belum absen'}${plg?' • Pulang '+plg.work_time:''}"><div class="num">${n}</div>${dot}</div>`;
+ }
+ const total=Math.max(0,days-start+1);
+ setPage(`<div class="card cal-card"><div class="cal-back"><button class="btn light" onclick="calendar()">← Kembali</button></div><div class="cal-head"><button class="cal-nav" onclick="changeCalMonth(-1)">‹</button><div class="cal-title">${esc(monthName(calMonth))}</div><button class="cal-nav" onclick="changeCalMonth(1)">›</button></div><div class="muted" style="margin-bottom:12px">${esc(calName)} • Kode ${esc(calCode)}</div><div class="cal-summary"><div class="cal-stat"><b>${hadir}</b><span>Berangkat</span></div><div class="cal-stat"><b>${telat}</b><span>Telat</span></div><div class="cal-stat"><b>${pulang}</b><span>Pulang</span></div></div><div class="cal-week"><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div><div>Min</div></div><div class="cal-grid">${cells}</div><div class="cal-legend"><span>🟢 Berangkat</span><span>🟡 Telat</span><span>🔴 Minggu</span><span>⚪ Belum absen</span></div></div><div class="card cal-detail"><b>Detail bulan ini</b><p class="muted">Ketuk tanggal di atas untuk melihat waktu masuk/pulang.</p>${calData.filter(x=>String(x.work_date).startsWith(ym(calMonth))).sort((a,b)=>String(b.work_date+b.work_time).localeCompare(String(a.work_date+a.work_time))).map(x=>`<div class="row" style="padding:10px 0;border-bottom:1px solid #eee"><div><b>${esc(localDate(x.work_date).toLocaleDateString('id-ID',{day:'numeric',month:'short'}))}</b><div class="small">${esc(x.type)}</div></div><span>${esc(x.work_time)}</span></div>`).join('')||'<p class="muted">Belum ada absensi bulan ini.</p>'}</div>`);
+}
+function changeCalMonth(step){calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()+step,1);renderCalendar()}
+async function showCalendar(code,name){
+ calCode=code;calName=name;calMonth=new Date();loading('Memuat kalender...');
+ try{
+  const from=new Date();from.setDate(from.getDate()-120);const fd=dayKey(from);
+  calData=await api(`attendance?employee_code=eq.${encodeURIComponent(code)}&work_date=gte.${fd}&select=type,work_date,work_time&order=work_date.desc,work_time.desc&limit=250`);
+  renderCalendar();
+ }catch(e){setPage(`<div class="card center">Gagal memuat data.<br><button class="btn primary" onclick="showCalendar('${esc(code)}','${esc(name)}')">Coba lagi</button></div>`)}
+}
+async function employees(){
+ navActive(1);loading('Memuat karyawan...');
+ try{
+  const em=await api('employees?select=id,code,name,active,profile_photo,bio&order=active.desc,name.asc');
+  const active=em.filter(e=>e.active);
+  const inactive=em.filter(e=>!e.active);
+  setPage(`<div class="card"><h2 style="margin-top:0">Karyawan</h2><p class="muted">Tambah karyawan baru atau kelola karyawan yang sudah ada.</p><input id="newCode" inputmode="numeric" maxlength="2" placeholder="Kode 2 angka"><input id="newName" placeholder="Nama karyawan"><button class="btn primary" onclick="addEmployee()">+ Tambah Karyawan</button></div>`
+   +active.map(e=>`<div class="card"><div class="row"><div><b>${esc(e.name)}</b><div class="small">Kode ${esc(e.code)}</div></div><span class="badge">Aktif</span></div><div class="grid" style="margin-top:10px"><button class="btn light" onclick="viewEmployeeProfile('${esc(e.code)}')">Profil</button><button class="btn light" onclick="editEmployee('${esc(e.code)}','${esc(e.name)}')">Edit</button><button class="btn danger" onclick="removeEmployee('${esc(e.code)}')">Hapus</button></div></div>`).join('')
+   +(inactive.length?`<div class="card"><h3 style="margin-top:0">Karyawan nonaktif</h3>`+inactive.map(e=>`<div class="row" style="padding:10px 0;border-bottom:1px solid #eee"><div><b>${esc(e.name)}</b><div class="small">Kode ${esc(e.code)}</div></div><button class="btn light" onclick="restoreEmployee('${esc(e.code)}')">Aktifkan</button></div>`).join('')+`</div>`:'')
+  );
+ }catch(e){setPage(`<div class="card center">Gagal memuat karyawan.<br><button class="btn primary" onclick="employees()">Coba lagi</button></div>`)}
+}
+async function addEmployee(){
+  const code=$('newCode').value.trim();
+  const name=$('newName').value.trim();
+  if(!/^\d{2}$/.test(code)||!name){alert('Kode harus 2 angka dan nama wajib diisi.');return}
+  try{
+    const existing=await api('employees?code=eq.'+encodeURIComponent(code)+'&select=id,code,name,active,profile_photo,bio');
+    if(existing.length){
+      const e=existing[0];
+      if(e.active){
+        alert('Kode karyawan '+code+' sudah digunakan oleh '+e.name+'.\nGunakan kode lain.');
+        return;
+      }
+      await api('employees?code=eq.'+encodeURIComponent(code),{method:'PATCH',body:JSON.stringify({name,active:true})});
+      alert('Karyawan '+name+' berhasil diaktifkan kembali.');
+      cache.clear();
+      employees();
+      return;
+    }
+    await api('employees',{method:'POST',body:JSON.stringify({code,name,active:true})});
+    alert('Karyawan '+name+' berhasil ditambahkan.');
+    cache.clear();
+    employees();
+  }catch(e){alert('Gagal menambah karyawan: '+friendlyApiError(e))}
+}
+async function editEmployee(code,currentName){
+  const name=prompt('Nama karyawan:',currentName);
+  if(name===null)return;
+  const clean=name.trim();
+  if(!clean){alert('Nama tidak boleh kosong.');return}
+  try{
+    await api('employees?code=eq.'+encodeURIComponent(code),{method:'PATCH',body:JSON.stringify({name:clean})});
+    cache.clear();
+    alert('Data karyawan berhasil diubah.');
+    employees();
+  }catch(e){alert('Gagal mengubah: '+friendlyApiError(e))}
+}
+async function removeEmployee(code){
+  if(!confirm('Hapus/nonaktifkan karyawan '+code+'?\nRiwayat absensi tetap disimpan.'))return;
+  try{
+    await api('employees?code=eq.'+encodeURIComponent(code),{method:'PATCH',body:JSON.stringify({active:false})});
+    cache.clear();
+    alert('Karyawan berhasil dinonaktifkan.');
+    employees();
+  }catch(e){alert('Gagal menghapus: '+friendlyApiError(e))}
+}
+async function restoreEmployee(code){
+  try{
+    await api('employees?code=eq.'+encodeURIComponent(code),{method:'PATCH',body:JSON.stringify({active:true})});
+    cache.clear();
+    alert('Karyawan berhasil diaktifkan kembali.');
+    employees();
+  }catch(e){alert('Gagal mengaktifkan: '+friendlyApiError(e))}
+}
+function friendlyApiError(e){
+  const m=String(e&&e.message||e);
+  if(m.includes('23505')||m.includes('employees_code_key')) return 'Kode karyawan sudah digunakan.';
+  return m;
+}
+async function profile(){
+ navActive(role==='admin'?3:2); loading('Memuat profil...');
+ try{const a=await api('employees?code=eq.'+encodeURIComponent(user.code)+'&select=id,code,name,profile_photo,bio');if(a.length)user={...user,...a[0]};const photo=user.profile_photo?`<img class="profile-avatar" src="${esc(user.profile_photo)}" alt="Foto profil">`:`<div class="profile-avatar">${esc((user.name||'?').slice(0,1).toUpperCase())}</div>`;setPage(`<div class="card"><div class="profile-head">${photo}<div><h2 style="margin:0">${esc(user.name)}</h2><div class="muted">Kode ${esc(user.code)}</div></div></div><div style="margin-top:18px"><b>Bio</b><p class="bio">${esc(user.bio||'Belum ada bio.')}</p></div><label class="btn light" style="display:block;text-align:center;width:100%;margin-bottom:8px">📷 Ganti Foto Profil<input type="file" accept="image/*" style="display:none" onchange="saveProfilePhoto(this)"></label><button class="btn primary" style="width:100%" onclick="editProfile()">✏️ Edit Bio</button></div>`)}catch(e){setPage(`<div class="card center">Gagal memuat profil.<br><button class="btn primary" onclick="profile()">Coba lagi</button></div>`)}}
+async function editProfile(){const bio=prompt('Tulis bio singkat:',user.bio||'');if(bio===null)return;try{await api('employees?code=eq.'+encodeURIComponent(user.code),{method:'PATCH',body:JSON.stringify({bio:bio.trim()})});cache.clear();user.bio=bio.trim();alert('Bio berhasil disimpan.');profile()}catch(e){alert('Gagal menyimpan bio: '+friendlyApiError(e))}}
+function profileImageToDataUrl(file){return new Promise((resolve,reject)=>{if(!file)return resolve(null);if(!file.type.startsWith('image/'))return reject(Error('Pilih file gambar.'));const reader=new FileReader();reader.onload=()=>{const img=new Image();img.onload=()=>{const size=256,scale=Math.min(size/img.width,size/img.height,1),w=Math.max(1,Math.round(img.width*scale)),h=Math.max(1,Math.round(img.height*scale)),c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.drawImage(img,0,0,w,h);resolve(c.toDataURL('image/jpeg',.78))};img.onerror=()=>reject(Error('Foto tidak bisa dibaca.'));img.src=reader.result};reader.onerror=()=>reject(Error('Foto gagal dibaca.'));reader.readAsDataURL(file)})}
+async function saveProfilePhoto(input){const file=input.files&&input.files[0];if(!file)return;try{const data=await profileImageToDataUrl(file);await api('employees?code=eq.'+encodeURIComponent(user.code),{method:'PATCH',body:JSON.stringify({profile_photo:data})});cache.clear();user.profile_photo=data;alert('Foto profil berhasil disimpan.');profile()}catch(e){alert('Gagal menyimpan foto profil: '+friendlyApiError(e))}}
+async function viewEmployeeProfile(code){loading('Memuat profil...');try{const a=await api('employees?code=eq.'+encodeURIComponent(code)+'&select=id,code,name,profile_photo,bio');if(!a.length)throw Error('Karyawan tidak ditemukan');const e=a[0],photo=e.profile_photo?`<img class="profile-avatar" src="${esc(e.profile_photo)}" alt="Foto profil">`:`<div class="profile-avatar">${esc((e.name||'?').slice(0,1).toUpperCase())}</div>`;setPage(`<div class="card"><button class="btn light" onclick="employees()">← Kembali</button><div class="profile-head" style="margin-top:14px">${photo}<div><h2 style="margin:0">${esc(e.name)}</h2><div class="muted">Kode ${esc(e.code)}</div></div></div><div style="margin-top:18px"><b>Bio</b><p class="bio">${esc(e.bio||'Belum ada bio.')}</p></div></div>`)}catch(e){setPage(`<div class="card center">Gagal memuat profil.<br><button class="btn primary" onclick="employees()">Kembali</button></div>`)}}
+async function more(){
+ navActive(role==='admin'?3:2);
+ setPage(`<div class="card"><h2 style="margin-top:0">Lainnya</h2>${role==='admin'?'<button class="btn light" style="width:100%;margin:4px 0" onclick="photos()">📷 Foto Absensi</button><button class="btn light" style="width:100%;margin:4px 0" onclick="bonus()">💰 Bonus Lembur</button><button class="btn light" style="width:100%;margin:4px 0" onclick="openSettings()">⚙️ Pengaturan</button>':'<button class="btn light" style="width:100%;margin:4px 0" onclick="profile()">👤 Profil Saya</button><button class="btn light" style="width:100%;margin:4px 0" onclick="photos()">📷 Foto Absensi Saya</button>'}<button class="btn danger" style="width:100%;margin-top:8px" onclick="logout()">Keluar</button></div>`);
+}
+async function photos(){
+ loading('Memuat daftar foto...');
+ try{
+  const q=role==='admin'
+   ? 'attendance?photo_path=not.is.null&select=id,employee_code,type,work_date,work_time,photo_path&order=created_at.desc&limit=80'
+   : 'attendance?employee_code=eq.'+encodeURIComponent(user.code)+'&photo_path=not.is.null&select=id,employee_code,type,work_date,work_time,photo_path&order=created_at.desc&limit=40';
+  const a=await api(q);
+  const title=role==='admin'?'Foto Absensi':'Foto Absensi Saya';
+  setPage(`<div class="card"><h2 style="margin-top:0">${title}</h2><p class="muted">Foto absensi tersimpan online.</p>${a.map(x=>`<div class="photo-item"><div class="photo-meta"><b>${esc(x.employee_code)} • ${esc(x.type)}</b><div class="small">${esc(x.work_date)} • ${esc(x.work_time)}</div></div><div class="photo-actions"><button class="btn light" onclick="viewPhoto('${encodeURIComponent(x.photo_path)}')">Lihat</button><button class="btn danger" onclick="deletePhoto('${esc(x.id)}','${encodeURIComponent(x.photo_path)}','${esc(x.employee_code)}')">Hapus</button></div></div>`).join('')||'<p class="muted">Belum ada foto.</p>'}</div>`);
+ }catch(e){setPage(`<div class="card center">Gagal memuat foto.<br><button class="btn primary" onclick="photos()">Coba lagi</button></div>`)}
+}
+async function deletePhoto(id,pathEncoded,employeeCode){
+ if(!confirm('Hapus foto absensi ini secara permanen? Data absensinya juga akan dihapus.'))return;
+ try{
+  const r=await fetch(C.url+'/functions/v1/attendance-photo',{method:'POST',headers:{'Content-Type':'application/json','apikey':C.anonKey,'Authorization':'Bearer '+C.anonKey},body:JSON.stringify({action:'delete',id,path:decodeURIComponent(pathEncoded),employee_code:employeeCode,role})});
+  const o=await r.json();
+  if(!r.ok||!o.ok)throw Error(o.error||'Foto gagal dihapus');
+  cache.clear();
+  alert('Foto berhasil dihapus.');
+  photos();
+ }catch(e){alert('Gagal menghapus foto: '+e.message)}
+}
+async function viewPhoto(pathEncoded){
+ const path=decodeURIComponent(pathEncoded);const r=await fetch(C.url+'/functions/v1/attendance-photo',{method:'POST',headers:{'Content-Type':'application/json','apikey':C.anonKey,'Authorization':'Bearer '+C.anonKey},body:JSON.stringify({path})});const o=await r.json();if(!r.ok)return alert(o.error||'Foto tidak dapat dibuka');setPage(`<div class="card"><button class="btn light" onclick="photos()">← Kembali</button><img loading="lazy" class="photo" src="${esc(o.url)}" style="margin-top:10px"></div>`)
+}
+async function bonus(){
+ loading('Memuat bonus...');
+ try{const a=await api('attendance?type=eq.Pulang&select=employee_code,work_date,work_time&order=work_date.desc&limit=120');setPage(`<div class="card"><h2>Bonus Lembur</h2><p class="muted">Rp10.000 per jam sesuai aturan aplikasi.</p>${a.map(x=>`<div class="row" style="padding:10px 0;border-bottom:1px solid #eee"><span>${esc(x.employee_code)} • ${esc(x.work_date)}</span><b>Rp10.000+</b></div>`).join('')||'<p class="muted">Belum ada data lembur.</p>'}</div>`)}catch(e){setPage(`<div class="card center">Gagal memuat bonus.<br><button class="btn primary" onclick="bonus()">Coba lagi</button></div>`)}
+}
+async function openSettings(){
+ setPage(`<div class="card"><h2 style="margin-top:0">Pengaturan</h2><div class="grid"><div><label>Jam masuk</label><input id="ws" type="time" value="05:20"></div><div><label>Batas telat</label><input id="la" type="time" value="05:30"></div></div><label>Jam pulang</label><input id="we" type="time" value="17:00"><button class="btn primary" style="width:100%;margin-top:4px" onclick="saveAppSettings()">Simpan Pengaturan</button></div>`);
+ try{const a=await api('settings?id=eq.1&select=work_start,late_after,work_end');const s=a&&a[0]?a[0]:{};if($('ws'))$('ws').value=s.work_start||'05:20';if($('la'))$('la').value=s.late_after||'05:30';if($('we'))$('we').value=s.work_end||'17:00'}catch(e){console.log(e)}
+}
+async function saveAppSettings(){try{await api('settings?id=eq.1',{method:'PATCH',body:JSON.stringify({work_start:$('ws').value,late_after:$('la').value,work_end:$('we').value,updated_at:new Date().toISOString()})});alert('Pengaturan tersimpan')}catch(e){alert('Gagal menyimpan pengaturan: '+e.message)}}
+async function attendance(type){
+ if(!navigator.mediaDevices?.getUserMedia)return alert('Browser tidak mendukung kamera.');
+ setPage(`<div class="card"><h2>Foto Absen ${esc(type)}</h2><video id="cam" autoplay playsinline></video><canvas id="cv" class="hidden"></canvas><button class="btn primary" style="width:100%;margin-top:10px" onclick="capture('${esc(type)}')">Ambil Foto & Simpan</button><button class="btn light" style="width:100%;margin-top:8px" onclick="stopCam();home()">Batal</button></div>`);
+ try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:960}},audio:false});$('cam').srcObject=stream}catch(e){alert('Izin kamera ditolak.')}
+}
+function stopCam(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}}
+async function capture(type){
+ const v=$('cam'),c=$('cv');if(!v.videoWidth)return alert('Kamera belum siap, tunggu sebentar.');const maxW=640,scale=Math.min(1,maxW/v.videoWidth);c.width=Math.round(v.videoWidth*scale);c.height=Math.round(v.videoHeight*scale);c.getContext('2d').drawImage(v,0,0,c.width,c.height);stopCam();const image_base64=c.toDataURL('image/jpeg',.58);
+ try{const r=await fetch(C.url+'/functions/v1/attendance',{method:'POST',headers:{'Content-Type':'application/json','apikey':C.anonKey,'Authorization':'Bearer '+C.anonKey},body:JSON.stringify({employee_code:user.code,type,work_date:today(),work_time:new Date().toTimeString().slice(0,5),image_base64})});const o=await r.json();if(!r.ok)throw Error(o.error||('Server foto belum aktif (HTTP '+r.status+')'));cache.clear();alert('Absen '+type+' berhasil. Foto tersimpan online.');home()}catch(e){alert('Gagal menyimpan: '+e.message)}
+}
+function logout(){stopCam();location.reload()}
+</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
+</body></html>
